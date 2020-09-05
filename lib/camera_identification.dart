@@ -54,15 +54,20 @@ class CameraIdentificationState extends State<CameraIdentification> {
             if (snapshot.connectionState == ConnectionState.done) {
               // If the Future is complete, display the preview.
               return Container(
+                color: Colors.white,
                 child: Stack(
                   children: <Widget>[
                     CustomPaint(
                       foregroundPainter: P(),
-                      child: CameraPreview(_controller),
+                      child: AspectRatio(
+                          aspectRatio: _controller.value.aspectRatio,
+                          child: CameraPreview(_controller)),
                     ),
                     ClipPath(
                       clipper: Clip(),
-                      child: CameraPreview(_controller),
+                      child: AspectRatio(
+                          aspectRatio: _controller.value.aspectRatio,
+                          child: CameraPreview(_controller)),
                     ),
                     Align(
                       alignment: Alignment.center,

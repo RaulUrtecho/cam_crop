@@ -19,7 +19,10 @@ class _CropImageState extends State<CropImage> {
   @override
   void initState() {
     image = imgLib.decodeImage(File(widget.imagePath).readAsBytesSync());
-    image = imgLib.copyRotate(image, 360); // rotar (orignal queda horizontal)
+    // The camera plugin produces images in landscape mode always
+    // if (image.width > image.height) {
+    //   image = imgLib.copyRotate(image, 360); // rotar
+    // }
     print('h: ${image.height} w: ${image.width}');
     int wCard = (image.width * 0.94).toInt();
     int hCard = wCard ~/ 1.57;
