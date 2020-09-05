@@ -19,12 +19,13 @@ class _CropImageState extends State<CropImage> {
   @override
   void initState() {
     image = imgLib.decodeImage(File(widget.imagePath).readAsBytesSync());
-    // Returned Image has dimensions width, height, starting from the x, y offset from the top-right corner.
+    image = imgLib.copyRotate(image, 360); // rotar (orignal queda horizontal)
     print('h: ${image.height} w: ${image.width}');
-    int wCard = (image.width * .94).toInt();
+    int wCard = (image.width * 0.94).toInt();
     int hCard = wCard ~/ 1.57;
     int x = ((image.width / 2) - (wCard / 2)).toInt();
     int y = ((image.height / 2) - (hCard / 2)).toInt();
+    // Returned Image has dimensions width, height, starting from the x, y offset from the top-right corner.
     image = imgLib.copyCrop(image, x, y, wCard, hCard);
     cropped = Image.memory(imgLib.encodeJpg(image), fit: BoxFit.contain);
     super.initState();
