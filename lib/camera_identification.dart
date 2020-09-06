@@ -43,6 +43,7 @@ class CameraIdentificationState extends State<CameraIdentification> {
 
   @override
   Widget build(BuildContext context) {
+    final double textHeigth = MediaQuery.of(context).size.height * 0.1;
     return Scaffold(
       // Wait until the controller is initialized before displaying the
       // camera preview. Use a FutureBuilder to display a loading spinner
@@ -53,34 +54,34 @@ class CameraIdentificationState extends State<CameraIdentification> {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               // If the Future is complete, display the preview.
-              return Container(
-                color: Colors.white,
-                child: Stack(
-                  children: <Widget>[
-                    CustomPaint(
-                      foregroundPainter: P(),
-                      child: AspectRatio(
-                          aspectRatio: _controller.value.aspectRatio,
-                          child: CameraPreview(_controller)),
-                    ),
-                    ClipPath(
-                      clipper: Clip(),
-                      child: AspectRatio(
-                          aspectRatio: _controller.value.aspectRatio,
-                          child: CameraPreview(_controller)),
-                    ),
-                    Align(
-                      alignment: Alignment.center,
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 350),
-                        child: Text(
+              return Stack(
+                children: <Widget>[
+                  Container(color: Colors.black),
+                  CustomPaint(
+                    foregroundPainter: P(),
+                    child: AspectRatio(
+                        aspectRatio: _controller.value.aspectRatio,
+                        child: CameraPreview(_controller)),
+                  ),
+                  ClipPath(
+                    clipper: Clip(),
+                    child: AspectRatio(
+                        aspectRatio: _controller.value.aspectRatio,
+                        child: CameraPreview(_controller)),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: textHeigth),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
                           'Centra tu INE dentro del espacio.',
                           style: TextStyle(color: Colors.white),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               );
             } else {
               // Otherwise, display a loading indicator.
@@ -89,6 +90,7 @@ class CameraIdentificationState extends State<CameraIdentification> {
           },
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.camera_alt),
         onPressed: () => _takePhoto(),
