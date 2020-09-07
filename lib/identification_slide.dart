@@ -45,9 +45,11 @@ class _IdentificationSlideState extends State<IdentificationSlide> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Container(
-                  child: cardFront,
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  height: (MediaQuery.of(context).size.width * 0.6 / 1.57),
+                  child: cardFront != null
+                      ? cardFront
+                      : Icon(Icons.camera_alt, size: 36),
+                  width: MediaQuery.of(context).size.width * 0.7,
+                  height: (MediaQuery.of(context).size.width * 0.7 / 1.57),
                 ),
               ),
             ),
@@ -71,9 +73,11 @@ class _IdentificationSlideState extends State<IdentificationSlide> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Container(
-                  child: cardBack,
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  height: (MediaQuery.of(context).size.width * 0.6 / 1.57),
+                  child: cardBack != null
+                      ? cardBack
+                      : Icon(Icons.camera_alt, size: 36),
+                  width: MediaQuery.of(context).size.width * 0.7,
+                  height: (MediaQuery.of(context).size.width * 0.7 / 1.57),
                 ),
               ),
             ),
@@ -90,7 +94,7 @@ class _IdentificationSlideState extends State<IdentificationSlide> {
             maxLines: 5,
             overflow: TextOverflow.ellipsis,
           ),
-          SizedBox(height: 60),
+          SizedBox(height: 20),
         ],
       ),
     );
